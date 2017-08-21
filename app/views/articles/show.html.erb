@@ -1,6 +1,17 @@
 <div class="container">
-  <ul>
-    <li>Title: <%= @article.title %></li>
-    <li>Content: <%= @article.content %></li>
-  </ul>
+  <h2 class="col-sm-4 block1"><%= @article.title %></h2><br />
+
+  <div class="col-sm-4 block1">
+    <%= @article.content %>
+  </div><br />
+
+  <div class="col-sm-4 block1">
+    <div>Language: <%= @article.language %></div>
+  </div><br />
+
+  <div class="col-sm-4 block1">
+    <%= link_to 'edit', edit_article_path(@article) %><br />
+    <%= link_to 'delete', @article, method: :delete, data: { confirm: 'destroy article?' } %><br />
+    <%= link_to 'Back', root_path %>
+  </div>
 </div>
