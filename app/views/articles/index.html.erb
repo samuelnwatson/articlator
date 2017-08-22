@@ -12,6 +12,17 @@
     <div class="col-sm-4">
       <h4>Create a new article</h4>
       <%= link_to "new article", new_article_path %>
+    </div><br />
+
+    <div class="col-sm-4">
+      <h4>Authored Articles</h4>
+      <ul>
+        <% @articles.each do |article| %>
+          <% if article.user == current_user %>
+            <li><%= link_to "#{article.title}", article_path(article) %></li>
+          <% end %>
+        <% end %>
+      </ul>
     </div>
   <% end %>
 </div>
