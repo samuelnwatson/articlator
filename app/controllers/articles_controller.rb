@@ -19,8 +19,8 @@ class ArticlesController < ApplicationController
       redirect_to @article
       flash[:notice] = 'article created'
     else
+      flash.now[:alert] = 'article not created'
       render 'new'
-      flash[:notice] = 'article not created'
     end
   end
 
@@ -32,8 +32,8 @@ class ArticlesController < ApplicationController
       redirect_to @article
       flash[:notice] = 'article updated'
     else
+      flash.now[:alert] = 'article not updated'
       render 'edit'
-      flash[:notice] = 'article not updated'
     end
   end
 
