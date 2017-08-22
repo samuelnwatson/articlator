@@ -9,9 +9,16 @@
     <div>Language: <%= @article.language %></div>
   </div><br />
 
+  <div class="col-sm-4 block1">Published <%= time_ago_in_words(@article.created_at) %> ago.</div><br />
+  <div class="col-sm-4 block1">By <%= @article.user.email %></div><br />
+
   <div class="col-sm-4 block1">
-    <%= link_to 'edit', edit_article_path(@article) %><br />
-    <%= link_to 'delete', @article, method: :delete, data: { confirm: 'destroy article?' } %><br />
+    <% if current_user&.email == @article.user.email %>
+      <%= link_to 'edit', edit_article_path(@article) %><br />
+    <% elsif current_user&.admin %>
+      <%= link_to 'edit', edit_article_path(@article) %><br />
+      <%= link_to 'delete', @article, method: :delete, data: { confirm: 'destroy article?' } %><br />
+    <% end %>
     <%= link_to 'Back', root_path %>
   </div>
 </div>
