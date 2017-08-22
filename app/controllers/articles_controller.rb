@@ -1,4 +1,6 @@
 class ArticlesController < ApplicationController
+  before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
+
   before_action :find_article, only: [:show, :edit, :update, :destroy]
 
   def index
@@ -10,10 +12,13 @@ class ArticlesController < ApplicationController
 
   def new
     @article = Article.new
+    authorize @article
   end
 
   def create
     @article = Article.new(article_params)
+    authorize @article
+    @article.user = current_user
 
     if @article.save
       redirect_to @article
@@ -25,9 +30,11 @@ class ArticlesController < ApplicationController
   end
 
   def edit
+    authorize @article
   end
 
   def update
+    authorize @article
     if @article.update(article_params)
       redirect_to @article
       flash[:notice] = 'article updated'
@@ -38,8 +45,9 @@ class ArticlesController < ApplicationController
   end
 
   def destroy
+    authorize @article
     @article.destroy
-    flash[:notice] = 'article destroyed'
+    flash[:alert] = 'article destroyed'
     redirect_to root_path
   end
 
