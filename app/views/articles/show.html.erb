@@ -2,7 +2,9 @@
   <h2 class="col-sm-4 block1"><%= @article.title %></h2><br />
 
   <div class="col-sm-4 block1">
-    <%= @article.content %>
+    <% unless @article.language.blank? %>
+      <%=raw CodeRay.scan("#{@article.content}", @article.language).div(:line_numbers => :table) %>
+    <% end %>
   </div><br />
 
   <div class="col-sm-4 block1">

@@ -34,6 +34,7 @@ gem 'bootstrap', '~> 4.0.0.beta'
 gem 'jquery-rails'
 gem 'devise'
 gem 'pundit'
+gem 'coderay'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
