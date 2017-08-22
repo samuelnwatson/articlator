@@ -1,21 +1,25 @@
 require "rails_helper"
 
-RSpec.feature "user can create articles" do
-  before do
+RSpec.feature "users can create articles" do
+  let!(:user) { FactoryGirl.create(:user) }
+
+  scenario "when anonymous" do
     visit root_path
+    expect(page).to_not have_content 'new article'
   end
 
-  context "when logged in" do
-    scenario "when not authorised" do
+  scenario "when logged in" do
+    login_as(user)
+    visit root_path
 
-    end
+    expect(page).to have_content 'new article'
+    click_link 'new article'
 
-    scenario "when authorised" do
+    fill_in "Title", with: Faker::TheFreshPrinceOfBelAir.character
+    fill_in "Content", with: Faker::TheFreshPrinceOfBelAir.quote
+    fill_in "Language", with: 'python'
+    click_on "Create Article"
 
-    end
-  end
-
-  context "when anonymous" do
-
+    expect(page).to have_content 'article created'
   end
 end

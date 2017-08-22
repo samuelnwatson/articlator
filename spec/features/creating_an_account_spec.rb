@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.feature "users can create an account" do
-  before do
+  before(:each) do
     visit root_path
     click_link "Login/Sign-up"
     click_link "Sign up"
