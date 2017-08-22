@@ -4,7 +4,12 @@ class ArticlesController < ApplicationController
   before_action :find_article, only: [:show, :edit, :update, :destroy]
 
   def index
-    @articles = Article.all
+    if params[:search]
+      @articles = Article.search(params[:search]).order("created_at DESC")
+      flash[:notice] = "found #{@articles.count} matches"
+    else
+      @articles = Article.all
+    end
   end
 
   def show
